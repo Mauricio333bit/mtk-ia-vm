@@ -5,7 +5,7 @@ const Header = () => {
   const navigate = useNavigate()
 
   return (
-    <header className="bg-gray-900 border-b border-gray-800 sticky top-0 z-30">
+    <header className="bg-gray-900 border-b border-gray-800 fixed top-0 z-30">
       <div className="px-10 w-screen mx-auto py-4">
         <div className="flex items-center justify-between flex-col md:flex-row gap-2">
           <div className="cursor-pointer" onClick={() => navigate("/")}>
