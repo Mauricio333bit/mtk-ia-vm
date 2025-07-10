@@ -38,7 +38,7 @@ const FilterSidebar = ({
       onClose={onClose}
       anchor="left"
       container={container}
-      disablePortal // <-- clave para que no se renderice en el body
+      disablePortal={true} // <-- clave para que no se renderice en el body
       sx={{
         width: 260,
         
