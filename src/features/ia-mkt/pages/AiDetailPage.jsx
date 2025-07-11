@@ -133,8 +133,8 @@ const AIDetailPage = ({ products }) => {
                 </div>
               )}
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                <ButtonVm sx={{ width: "100%" }} variant="primary" startIcon={<BookmarkCheck />} animateIcon={true} animationType="bounce">Adquirir servicio</ButtonVm>
-                <a href="#contact-form" style={{ textDecoration: 'none' }}>
+                {/* <ButtonVm sx={{ width: "100%" }} variant="primary" startIcon={<BookmarkCheck />} animateIcon={true} animationType="bounce">Adquirir servicio</ButtonVm> */}
+                <a href="https://visualmedica.com/contacto/#fo" style={{ textDecoration: 'none' }} target="blank">
 
                   <ButtonVm sx={{ width: "100%" }} variant="secondary" startIcon={<BadgeInfo />} animateIcon={true} animationType="wobble">Solicita mas informacion</ButtonVm>
                 </a>

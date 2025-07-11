@@ -24,7 +24,9 @@ const FilterSidebar = ({
   onCategoryChange,
   onClose,
   variant = "permanent",
-  container
+  container,
+  onKeywordChange
+
 }) => {
   const theme = useTheme()
   const isDesktop = useMediaQuery(theme.breakpoints.up("lg"))
@@ -38,25 +40,25 @@ const FilterSidebar = ({
       onClose={onClose}
       anchor="left"
       container={container}
-      disablePortal={true} // <-- clave para que no se renderice en el body
+
       sx={{
         width: 260,
-        
+
         "& .MuiDrawer-paper": {
           width: 260,
           bgcolor: "#1f2937",
           color: "#fff",
-          top:82,
+          top: 82,
           borderRight: "1px solid #374151",
           boxSizing: "border-box",
           position: "fixed",
-          maxHeight:{sm:'100%',lg:'88.5%' }
-          
+          maxHeight: { sm: '100%', lg: '88.5%' }
+
         }
       }}
     >
-     
-      
+
+
       {/* Header */}
       <Box
         sx={{
@@ -85,10 +87,10 @@ const FilterSidebar = ({
 
       {/* Sección de Modalidad */}
       <Box sx={{ px: 2, py: 1 }}>
-        <Typography 
-          variant="overline" 
-          sx={{ 
-            color: "#9ca3af", 
+        <Typography
+          variant="overline"
+          sx={{
+            color: "#9ca3af",
             fontSize: "0.75rem",
             fontWeight: 600,
             letterSpacing: 1
@@ -156,10 +158,8 @@ const FilterSidebar = ({
 
       {/* Footer opcional */}
       <Divider sx={{ borderColor: "#374151" }} />
-      <Box sx={{ p: 2 }}>
-        <Typography variant="caption" sx={{ color: "#6b7280" }}>
-          {categories.length} categories available
-        </Typography>
+      <Box sx={{ py: 2, display: "flex", justifyContent: "center" }}>
+        <input type="search" placeholder="Busqueda rapida" className="border-1 p-2 rounded" onChange={onKeywordChange} />
       </Box>
     </Drawer>
   )

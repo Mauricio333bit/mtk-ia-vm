@@ -102,7 +102,7 @@ const AICard = ({ product }) => {
 
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
            <ButtonVm sx={{ width: "100%" }} variant="secondary" startIcon={<Eye />} animateIcon={true} animationType="wobble" onClick={handleViewDetails}>Ver detalles</ButtonVm>
-          <ButtonVm sx={{ width: "100%" }} variant="primary" startIcon={<BookmarkCheck/>} animateIcon={true} animationType="bounce">Adquirir servicio</ButtonVm>
+          {/* <ButtonVm sx={{ width: "100%" }} variant="primary" startIcon={<BookmarkCheck/>} animateIcon={true} animationType="bounce" >Adquirir servicio</ButtonVm> */}
         </Box>
       </CardContent>
     </Card>

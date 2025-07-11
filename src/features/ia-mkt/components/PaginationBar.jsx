@@ -23,7 +23,7 @@ const PaginationBar = ({
     display: "flex",
     justifyContent: "center",
     bgcolor: "#0f172a",
-    py: 2,
+    py: 1,
     px: 2,
     zIndex: 50
   }}
@@ -66,11 +66,7 @@ const PaginationBar = ({
           )}
         />
 
-        {/* Info de página */}
-        <Typography variant="body2" sx={{ color: "#9ca3af", mt: 1 }}>
-          Mostrando {(currentPage - 1) * itemsPerPage + 1} -{" "}
-          {Math.min(currentPage * itemsPerPage, totalItems)} de {totalItems} productos
-        </Typography>
+        
       </Box>
     </Box>
   )
