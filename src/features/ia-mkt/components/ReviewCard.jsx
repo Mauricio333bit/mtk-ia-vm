@@ -1,20 +1,52 @@
+import { Box, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { Star } from "lucide-react";
 
-const ReviewCard = ({ institucion, usuario, comentario, valoracion }) => (
-  <div className="bg-transparent text-cyan-400  rounded-xl p-6 shadow-md w-80  mx-2 border-1 h-[175px]">
-    <h3 className="text-lg font-bold ">{usuario}</h3>
-    <p className="text-sm  mb-1">{institucion}</p>
-    <div className="flex items-center mb-3">
-      {[...Array(5)].map((_, i) => (
-        <Star
-          key={i}
-          size={20}
-          className={i < valoracion ? "text-yellow-400" : "text-gray-300"}
-          fill={i < valoracion ? "currentColor" : "none"}
-        />
-      ))}
-    </div>
-    <p className=" text-sm">{comentario}</p>
-  </div>
-);
+const ReviewCard = ({ institucion, usuario, comentario, valoracion }) => {
+  const theme = useTheme();
+
+  return (
+    <Box
+      sx={{
+        bgcolor: "transparent",
+        color: theme.palette.primary.main,
+        borderRadius: 3,
+        p: 3,
+        boxShadow: 3,
+        width: 320,
+        mx: 1,
+        border: `1px solid ${theme.palette.divider}`,
+        height: 175,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+      <Box>
+        <Typography variant="subtitle1" fontWeight="bold">
+          {usuario}
+        </Typography>
+        <Typography variant="body2" sx={{ mb: 1 }}>
+          {institucion}
+        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              size={20}
+              color={
+                i < valoracion
+                  ? theme.palette.warning.main
+                  : theme.palette.grey[400]
+              }
+              fill={i < valoracion ? theme.palette.warning.main : "none"}
+            />
+          ))}
+        </Box>
+      </Box>
+      <Typography variant="body2">{comentario}</Typography>
+    </Box>
+  );
+};
+
 export default ReviewCard;

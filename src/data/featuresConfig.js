@@ -11,7 +11,7 @@ export const featuresConfig = [
     id: 1,
     icon: "Zap",
     label: "Velocidad",
-    description: "Procesamiento rápido",
+    description: "Procesamiento de 3-10s",
     color: "text-yellow-400"
   },
   {
@@ -47,6 +47,20 @@ export const featuresConfig = [
     icon: "Cpu",
     label: "Integración",
     description: "Compatibilidad con sistemas",
+    color: "text-teal-400"
+  },
+   {
+    id: 7,
+    icon: "CloudFog",
+    label: "Integración PACS",
+    description: "Servicio basado en la nube",
+    color: "text-teal-400"
+  },
+   {
+    id: 8,
+    icon: "BriefcaseMedical",
+    label: "Apoyo clínico",
+    description: "Detecta 5 anomalias pulmonares",
     color: "text-teal-400"
   }
 ]

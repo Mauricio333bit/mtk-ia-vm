@@ -29,34 +29,37 @@ const ImageGallery = ({ images }) => {
   };
 
   return (
-    <div>
-     <Masonry columns={{ xs: 1, sm: 2, md: 2 }} spacing={1}>
-      {images.map((image, index) => (
-        <Box
-          key={index}
-          onClick={() => handleImageClick(index)}
-          sx={{
-            cursor: 'pointer',
-            borderRadius: 2,
-            overflow: 'hidden',
-            "&:hover": {
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)"
-            }
-          }}
-        >
-          <img
-            src={`/img/${image}`}
-            alt={`Imagen ${index + 1}`}
-            loading="lazy"
-            style={{
-              width: "100%",
-              display: "block",
-              borderRadius: 8,
+    <div className="m-1">
+      <Masonry columns={{ xs: 1, sm: 2, md: 2 }} spacing={2}>
+        {images.map((image, index) => (
+          <Box
+            key={index}
+            onClick={() => handleImageClick(index)}
+            sx={{m:1,
+              cursor: 'pointer',
+             
+              overflow: 'hidden',
+              "&:hover": {
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)"
+              }
             }}
-          />
-        </Box>
-      ))}
-    </Masonry>
+          >
+            <img
+              src={`/orquestador/img/${image}`}
+              alt={`Imagen ${index + 1}`}
+              loading="lazy"
+              style={{
+                 borderRadius: 10,
+                width: '20rem',
+                height: 'auto',
+                maxHeight:"20rem",
+                display: 'block',
+                objectFit:"scale-down"
+              }}
+            />
+          </Box>
+        ))}
+      </Masonry>
 
       {/* Modal para visualizar la imagen en modo slider */}
       <Modal
@@ -64,19 +67,19 @@ const ImageGallery = ({ images }) => {
         onClose={() => setOpenModal(false)}
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
-        
-        
+
+
       >
         <Box
           sx={{
-            width:'100%',
-            height:"100%",
-            placeContent:"center",
+            width: '100%',
+            height: "100%",
+            placeContent: "center",
             background: "rgba(0, 0, 0, 0.85)",
             padding: 2,
             borderRadius: 4,
-            
-            
+
+
             outline: "none",
           }}
         >
@@ -91,7 +94,7 @@ const ImageGallery = ({ images }) => {
               zIndex: 10,
             }}
           ><CircleX size={30} />
-            
+
           </Button>
 
           {/* Contenido del slider */}
@@ -112,7 +115,7 @@ const ImageGallery = ({ images }) => {
               onClick={handlePrevImage}
               sx={{
                 position: "absolute",
-                
+
                 left: 10,
                 top: "50%",
                 transform: "translateY(-50%)",
@@ -121,7 +124,7 @@ const ImageGallery = ({ images }) => {
                 height: "40px",
                 borderRadius: "50%",
                 padding: 0,
-                zIndex:50,
+                zIndex: 50,
               }}
             >
               <CircleArrowLeft size={30} />
@@ -142,12 +145,12 @@ const ImageGallery = ({ images }) => {
               }}
             >
               <img
-                src={`/img/${images[currentImageIndex]}`} // Ajusta la ruta según tu estructura
+                src={`/orquestador/img/${images[currentImageIndex]}`} // Ajusta la ruta según tu estructura
                 alt={`Imagen ${currentImageIndex + 1}`}
                 style={{
                   maxWidth: "100%",
                   maxHeight: "100%",
-                  objectFit: "contain", // Ajusta la imagen al contenedor sin cortarla
+                  objectFit: "contain",
                   transition: "transform 0.3s ease-in-out", // Transición suave
                 }}
               />
@@ -168,7 +171,7 @@ const ImageGallery = ({ images }) => {
                 height: "40px",
                 borderRadius: "50%",
                 padding: 0,
-                zIndex:50,
+                zIndex: 50,
               }}
             >
               <CircleArrowRight size={30} />

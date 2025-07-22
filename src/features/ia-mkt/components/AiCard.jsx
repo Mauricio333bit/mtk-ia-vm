@@ -1,15 +1,25 @@
-import React from "react"
-import { useNavigate } from "react-router-dom"
-import { Box, Card, CardMedia, CardContent, Typography, Button, Chip, IconButton } from "@mui/material"
-import { Heart, Eye, BookmarkCheck } from "lucide-react"
-import ButtonVm from "../../../common/components/ButtonVm"
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  IconButton,
+  Chip,
+} from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { Heart, Eye } from "lucide-react";
+import ButtonVm from "../../../common/components/ButtonVm";
 
 const AICard = ({ product }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const theme = useTheme();
 
   const handleViewDetails = () => {
-    navigate(`/product/${product.id}`)
-  }
+    navigate(`/product/${product.id}`);
+  };
 
   return (
     <Card
@@ -19,37 +29,46 @@ const AICard = ({ product }) => {
         flexDirection: "column",
         height: "100%",
         maxHeight: "460px",
-        bgcolor: "#1f2937",
+        bgcolor: theme.palette.background.default,
         borderRadius: 2,
-        border: "1px solid #374151",
+        border: `2px solid transparent`,
         "&:hover": {
-          borderColor: "#06b6d4"
-        }
+          borderColor: theme.palette.primary.main,
+        },
       }}
       elevation={3}
     >
-      <Box sx={{ position: "relative", height: 192, bgcolor: "#374151", overflow: "hidden" }}>
+      <Box
+        sx={{
+          position: "relative",
+          height: 192,
+          bgcolor: theme.palette.background.default,
+          overflow: "hidden",
+        }}
+      >
         <CardMedia
           component="img"
-          image={`/img/${product.imagen[0]}`}
+          image={`${import.meta.env.VITE_BASE_URL}/img/${product.imagen[0]}`}
           alt={product.nombre}
           sx={{ height: "100%", width: "100%", objectFit: "cover" }}
         />
+
         <IconButton
           sx={{
             position: "absolute",
             top: 12,
             right: 12,
-            bgcolor: "rgba(16, 29, 31, 0.7)", // bg-cyan-900 bg-opacity-50
+            
+            bgcolor: "rgba(0,0,0,0.4)",
             "&:hover": {
-              bgcolor: "rgba(6, 182, 212, 0.5)"
+              bgcolor: theme.palette.primary.main,
             },
-            color: "white"
+            color: theme.palette.common.white,
           }}
-          aria-label="favorite"
         >
           <Heart />
         </IconButton>
+
         <Chip
           label={product.categoria}
           size="small"
@@ -57,13 +76,13 @@ const AICard = ({ product }) => {
             position: "absolute",
             top: 12,
             left: 12,
-            bgcolor: "#06b6d4", // cyan-600
-            color: "white",
+            bgcolor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
             fontWeight: "bold",
             fontSize: 12,
             px: 1.5,
             py: 0.5,
-            borderRadius: 1
+            borderRadius: 1,
           }}
         />
       </Box>
@@ -73,7 +92,7 @@ const AICard = ({ product }) => {
           variant="h6"
           component="h3"
           sx={{
-            color: "white",
+            color: theme.palette.text.primary,
             fontWeight: "bold",
             mb: 1,
             display: "-webkit-box",
@@ -88,7 +107,7 @@ const AICard = ({ product }) => {
         <Typography
           variant="body2"
           sx={{
-            color: "#d1d5db", // gray-300
+            color: theme.palette.text.secondary,
             mb: 3,
             flexGrow: 1,
             display: "-webkit-box",
@@ -101,12 +120,20 @@ const AICard = ({ product }) => {
         </Typography>
 
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-           <ButtonVm sx={{ width: "100%" }} variant="secondary" startIcon={<Eye />} animateIcon={true} animationType="wobble" onClick={handleViewDetails}>Ver detalles</ButtonVm>
-          {/* <ButtonVm sx={{ width: "100%" }} variant="primary" startIcon={<BookmarkCheck/>} animateIcon={true} animationType="bounce" >Adquirir servicio</ButtonVm> */}
+          <ButtonVm
+            sx={{ width: "100%" }}
+            variant="secondary"
+            startIcon={<Eye />}
+            animateIcon={true}
+            animationType="wobble"
+            onClick={handleViewDetails}
+          >
+            Ver detalles
+          </ButtonVm>
         </Box>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default AICard
+export default AICard;

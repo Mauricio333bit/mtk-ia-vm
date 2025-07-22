@@ -74,7 +74,7 @@ export default function App() {
   return (
     <form id="contact-form" className="relative mx-auto border-none rounded-md p-2 flex flex-col justify-center text-center align-center px-8 mb-2 sm:w-11/12 md:w-8/12 gap-6 sm:h-full">
       <h3 className="text-2xl font-bold text-cyan-400 py-4">Solicitud de contacto</h3>
-      <Box display={"flex"} flexDirection={{ sm: "column", md: "row" }} gap={2}>
+      <Box display={"flex"} flexDirection={{ xs: "column", md: "row" }} gap={2}>
         <InputVM
           label="Nombre"
           name="nombre"
@@ -104,7 +104,7 @@ export default function App() {
         validation={{ required: 'Debes insertar el nombre de tu institucion' }}
         error={errors.institucion}
         color="primary" />
-      <Box display={"flex"} flexDirection={{ sm: "column", md: "row" }} gap={2} alignItems={"center"}>
+      <Box display={"flex"} flexDirection={{ xs: "column", md: "row" }} gap={2} alignItems={"center"}>
 
 
         <InputVM

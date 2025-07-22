@@ -1,4 +1,6 @@
+import { useTheme } from "@mui/material/styles"
 const NeuralNetwork = ({ top = "8rem", left = "2.5rem", right, bottom }) => {
+  const theme = useTheme()
   const positionStyle = {
     position: "absolute",
     top,
@@ -16,7 +18,7 @@ const NeuralNetwork = ({ top = "8rem", left = "2.5rem", right, bottom }) => {
             cx={50 + (i % 4) * 70}
             cy={50 + Math.floor(i / 4) * 70}
             r="4.5"
-            fill="#06b6d4"
+            fill={`${theme.palette.primary.main}`}
             className="animate-pulse"
             style={{ animationDelay: `${i * 0.2}s` }}
           />
@@ -28,7 +30,7 @@ const NeuralNetwork = ({ top = "8rem", left = "2.5rem", right, bottom }) => {
             y1={50 + Math.floor(i / 4) * 70}
             x2={120 + (i % 3) * 70}
             y2={120 + Math.floor(i / 3) * 70}
-            stroke="#06b6d4"
+            stroke={`${theme.palette.primary.main}`}
             strokeWidth="1"
             opacity="0.6"
           />

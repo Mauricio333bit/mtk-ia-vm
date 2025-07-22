@@ -1,21 +1,26 @@
 "use client"
 import { useParams, useNavigate } from "react-router-dom"
-import { ArrowLeft, Brain, Activity, Zap, Shield, BookmarkCheck, Eye, BadgeInfo } from "lucide-react"
+import { ArrowLeft, Brain, Activity, Zap, Shield, BookmarkCheck, Eye, BadgeInfo, X } from "lucide-react"
 import NeuNet from "../../../common/components/NeuralNetwork"
 import FeatureBadge from "../components/FeatureBadge"
 import { featuresConfig } from "../../../data/featuresConfig"
 
 import ButtonVm from "../../../common/components/ButtonVm"
-import { Box } from "@mui/material"
+import { Box, Chip, IconButton, Modal, Stack } from "@mui/material"
 import ImageGallery from "../components/ImageGallery"
 import ContactForm from "../../../common/ContactForm"
 import UseModeSection from "../components/UseModeSection"
 import ReviewsSection from "../components/ReviewSection"
+import { useEffect, useState } from "react"
+import { alpha, useTheme } from "@mui/material/styles"
 
 const AIDetailPage = ({ products }) => {
+  const theme = useTheme()
   const { id } = useParams()
   const navigate = useNavigate()
-
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }, [])
   // Asegura parseo correcto del ID
   const productId = parseInt(id, 10)
   const product = products.find((p) => p.id === productId)
@@ -93,83 +98,146 @@ const AIDetailPage = ({ products }) => {
       </div>
     )
   }
+  const [open, setOpen] = useState(false)
 
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
   return (
-    <div className="bg-gray-900 mt-20">
-      <div className="relative overflow-hidden pt-1 px-6">
+
+    <Box sx={{ mt: { xs: 14, md: 10, backgroundColor: alpha(theme.palette.background.default, 0.01) }, p: 2, height: "100%" }}>
+
+      <div className="relative  pt-1 px-6 ">
         {/* Background elements */}
         <div className="absolute inset-0 network-bg opacity-50" />
-        <div className="absolute top-20 right-10 w-96 h-96 opacity-40">
+        <div className="absolute top-44 right-10 w-96 h-96 opacity-40 ">
           <div className="w-full h-full rounded-full border-2 border-cyan-100 animate-pulse" />
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full border border-cyan-100 animate-ping" />
         </div>
         <NeuNet />
 
-        <div className="relative z-10 container  mx-auto py-6 ">
-          <div className="grid lg:grid-cols-2 gap-12 items-between">
-            {/* Left side - Content */}
-            <div className="space-y-8 h-full flex flex-col justify-between">
-              <div className="flex flex-col md:flex-row gap-2 items-center">
-                <h1 id="product-ia-name" className="text-3xl lg:text-5xl font-bold text-white mb-4 leading-tight">{product.nombre}</h1>
-              </div>
 
-              <div className="space-y-6">
-                <h2 className="text-2xl font-semibold text-white flex items-center gap-3">
-                  <Brain className="w-6 h-6 text-cyan-400" />
-                  CARACTERÍSTICAS
-                </h2>
-                <p className="text-gray-300 text-lg leading-relaxed">{product.descripcion}</p>
-              </div>
+      </div>
+      <div id="section-detalles" className=" mx-auto p-6 relative  ">
+        <div className="flex flex-col md:flex-row gap-4 justify-center items-start border-pink-50 border-2">
+          {/* Left side - Content */}
+          <div className=" my-1 space-y-2  flex flex-col justify-between  w-full border-pink-50 border-2">
+            <div className="flex flex-col md:flex-row gap-2 items-center">
+              <h1 id="product-ia-name" className="text-3xl lg:text-5xl font-bold text-white mb-4 leading-tight">{product.nombre}</h1>
+            </div>
 
-              {/* Features del producto */}
-              {productFeatures.length > 0 && (
-                <div className="mb-4">
+            <div className="space-y-2">
+              <h2 className="text-2xl font-semibold text-white flex items-center gap-3">
+                <Brain className="w-6 h-6 text-primary" />
+                CARACTERÍSTICAS
+              </h2>
+              <p className="text-gray-300 text-lg leading-relaxed">{product.descripcion}</p>
+            </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {productFeatures.map((feature, index) => (
-                      <FeatureBadge key={index} feature={feature} />
-                    ))}
-                  </div>
+
+
+            {/* Features del producto */}
+            {productFeatures.length > 0 && (
+              <div className="mb-4">
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {productFeatures.map((feature, index) => (
+                    <FeatureBadge key={index} feature={feature} />
+                  ))}
                 </div>
-              )}
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                {/* <ButtonVm sx={{ width: "100%" }} variant="primary" startIcon={<BookmarkCheck />} animateIcon={true} animationType="bounce">Adquirir servicio</ButtonVm> */}
-                <a href="https://visualmedica.com/contacto/#fo" style={{ textDecoration: 'none' }} target="blank">
-
-                  <ButtonVm sx={{ width: "100%" }} variant="secondary" startIcon={<BadgeInfo />} animateIcon={true} animationType="wobble">Solicita mas informacion</ButtonVm>
-                </a>
-              </Box>
-
-
-            </div>
-
-            {/* Right side - Medical imagery */}
-            <div className="relative">
-
-              <ImageGallery images={product.imagen} />
-
-              {/* Floating AI indicator */}
-              <div className="absolute -top-4 -right-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-full font-bold text-xl shadow-lg">
-                <span className="font-medium">{product.categoria}</span>
               </div>
-            </div>
+            )}
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              {/* <ButtonVm sx={{ width: "100%" }} variant="primary" startIcon={<BookmarkCheck />} animateIcon={true} animationType="bounce">Adquirir servicio</ButtonVm> */}
+
+
+              <ButtonVm onClick={handleOpen} sx={{ width: "100%" }} variant="secondary" startIcon={<BadgeInfo />} animateIcon={true} animationType="wobble" disabled={product.habilitado == "0"} >Contratar Servicio</ButtonVm>
+
+            </Box>
+
+
+          </div>
+
+          {/* Right side - Medical imagery */}
+          <div className=" container overflow-hidden my-1 border-pink-50 border-2 ">
+            {product.patologias?
+            <h2 className="text-2xl font-semibold text-white flex items-center gap-3">
+              Patologias detectadas
+            </h2>:""}
+            {product.patologias? product.patologias.length > 0 && (
+              <Stack direction="row" spacing={1}  my={2} color={theme.palette.primary.main}>
+                {product.patologias.map((patologia, index) => (
+                  <Chip
+                    key={index}
+                    label={patologia}
+                    variant="outlined"
+                    sx={{
+                      fontSize: "1rem",       
+                      height: 40,             
+                      mx: 1,                  
+                      borderRadius: "8px"    
+                    }}
+                  />
+                ))}
+              </Stack>
+            ):""}
+            <ImageGallery images={product.imagen} />
+
+            {/* Floating AI indicator */}
+
+            <Box sx={{ position: "absolute", top: -4, right: -4, backgroundColor: theme.palette.primary.main, px: 6, py: 2, borderRadius: 3 }}>
+              <span className="font-medium">{product.categoria}</span>
+            </Box>
+
           </div>
         </div>
       </div>
       <UseModeSection
         titulo="Modo de uso del servicio"
         descripcion={product.modoUso.descripcion}
-        videoUrl={product.modoUso.videoTutorial} // Reemplaza con el URL real
+        videoUrl={product.modoUso.videoTutorial} // Este link deberia llevar a un video donde se muestre el modo de uso de la herramienta en film
       />
 
 
-      <ReviewsSection reviews={sampleReviews} />
+      {/* <ReviewsSection reviews={sampleReviews} handleOpen={handleOpen} /> */}
+
+      <Modal open={open} onClose={handleClose}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "90%",
+            maxHeight: "90%",
+            maxWidth: "800px",
+            bgcolor: "#1f2937",
+            borderRadius: 2,
+            boxShadow: 24,
+            p: 0,
+            overflow: "hidden",
+          }}
+        >
+
+          <IconButton onClick={handleClose} sx={{ color: "#fff" }}>
+            <X />
+          </IconButton>
 
 
-      
-      <ContactForm></ContactForm>
-      
-    </div>
+          {/* Iframe del formulario externo */}
+          <iframe
+            src="https://share.hsforms.com/1gqWQp1wRQimX7oV3VWWuugnoqvq"
+            width="100%"
+            height="600px"
+            style={{ border: "none" }}
+            title="Formulario de contacto externo"
+          />
+        </Box>
+      </Modal>
+
+      {/* <ContactForm></ContactForm> */}
+    </Box>
+
+
   )
 }
 

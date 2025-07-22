@@ -2,6 +2,7 @@ import { useState, useMemo } from "react"
 import AICard from "./AiCard"
 import { Box, Grid, Pagination } from "@mui/material"
 import PaginationBar from "./PaginationBar"
+import { SearchX } from "lucide-react"
 
 const CardList = ({ products, currentPage, setCurrentPage }) => {
 
@@ -22,18 +23,19 @@ const CardList = ({ products, currentPage, setCurrentPage }) => {
   }
 
   // Si no hay productos
-  if (products.length === 0) {
+  if (products.length == 0 ) {
     return (
-      <div className="text-center py-12">
-        <p className="text-gray-400 text-lg">No se encontraron productos.</p>
-      </div>
+      <Box component="section" pt={{ xs: 8, md: 2, lg: 0 }} sx={{display: "flex", pb: 16,px:5, mt:10, justifyContent:"center", gap:2,flexDirection:"column",alignItems:"center", position:"relative",width:"100%", height:"100%", top:50  }}>
+        <p className="text-gray-400 text-lg text-center">No se encontraron coincidencias. </p>
+        <SearchX size={50} />
+      </Box>
     )
   }
 
   return (
 
-    <Box component="section" sx={{ display: "flex", pb: 16,px:2, mt:10, }}>
-      <Grid container spacing={3}>
+    <Box component="section" pt={{ xs: 13, md: 2, lg: 0 }} sx={{display: "flex", pb: 16,px:5, mt:10 }}>
+      <Grid container spacing={6}>
         {paginatedData.map((product) => (
           <Grid size={{ xs: 12, md: 6, lg: 4 }} key={product.id}>
             <AICard key={product.id} product={product} />

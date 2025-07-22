@@ -1,20 +1,17 @@
-import React from "react"
 import {
   Drawer,
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
   IconButton,
   Typography,
   Box,
   Divider,
-  useMediaQuery,
-  Toolbar
+  useMediaQuery
 } from "@mui/material"
-import { X, Filter } from "lucide-react"
-import { useTheme } from "@mui/material/styles"
+import { X, Filter, Search } from "lucide-react"
+import { alpha, useTheme } from "@mui/material/styles"
 
 const drawerWidth = 260
 
@@ -23,42 +20,44 @@ const FilterSidebar = ({
   selectedCategory,
   onCategoryChange,
   onClose,
-  variant = "permanent",
+  
   container,
-  onKeywordChange
 
+  open
 }) => {
   const theme = useTheme()
   const isDesktop = useMediaQuery(theme.breakpoints.up("lg"))
+
   const drawerVariant = isDesktop ? "permanent" : "temporary"
-  const isOpen = isDesktop || variant === "temporary"
 
   return (
     <Drawer
       variant={drawerVariant}
-      open={isOpen}
+      open={isDesktop ? true : open}
       onClose={onClose}
       anchor="left"
       container={container}
-
+      ModalProps={{
+        keepMounted: true, // Mejora performance en móviles
+      }}
       sx={{
-        width: 260,
-
+        width: drawerWidth,
         "& .MuiDrawer-paper": {
-          width: 260,
-          bgcolor: "#1f2937",
-          color: "#fff",
-          top: 82,
-          borderRight: "1px solid #374151",
+          borderRadius: {xs:0,sm:3},
+          marginLeft:{xs:0,md:1},
+          width: isDesktop ? drawerWidth : "100%",
+          height: isDesktop ? "83%" : "100%",
+          bgcolor: theme.palette.background.paper, // antes "#1f2937"
+          color: theme.palette.text.primary,        // antes "#fff"
+          top: isDesktop ? 90 : 0,
+
           boxSizing: "border-box",
           position: "fixed",
-          maxHeight: { sm: '100%', lg: '88.5%' }
-
+          transition: "transform 0.3s ease-in-out"
         }
       }}
+
     >
-
-
       {/* Header */}
       <Box
         sx={{
@@ -66,17 +65,17 @@ const FilterSidebar = ({
           py: 2,
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent:"center",
           borderBottom: "1px solid #374151"
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Box sx={{ display: "flex", justifyContent:"space-between", gap: 1, }}>
           <Filter size={20} />
           <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-            FILTERS
+            FILTROS
           </Typography>
         </Box>
-        {drawerVariant === "temporary" && (
+        {!isDesktop && (
           <IconButton onClick={onClose} sx={{ color: "#9ca3af" }}>
             <X size={20} />
           </IconButton>
@@ -85,47 +84,45 @@ const FilterSidebar = ({
 
       <Divider sx={{ borderColor: "#374151" }} />
 
-      {/* Sección de Modalidad */}
-      <Box sx={{ px: 2, py: 1 }}>
+      {/* Categorías */}
+      <Box sx={{ px: 2, py: 1 ,textAlign:"center" }}>
         <Typography
           variant="overline"
           sx={{
-            color: "#9ca3af",
+            color: theme.palette.text.secondary,
             fontSize: "0.75rem",
             fontWeight: 600,
-            letterSpacing: 1
+            letterSpacing: 1,
           }}
-        >
-          MODALITY
+        >MODALIDADES
         </Typography>
+
       </Box>
 
-      {/* Lista de categorías */}
       <List sx={{ px: 1, overflowY: "auto", flex: 1 }}>
-        {categories.map((category, index) => {
+        {categories.map((category) => {
           const isSelected = selectedCategory === category.key
-
           return (
-            <ListItem
-              key={category.key}
-              disablePadding
-              sx={{ mb: 0.5 }}
-            >
+            <ListItem key={category.key} disablePadding sx={{ mb: 0.5 }}>
               <ListItemButton
                 onClick={() => {
                   onCategoryChange(category.key)
-                  if (drawerVariant === "temporary") onClose?.()
+                  if (!isDesktop) onClose?.()
                 }}
                 sx={{
-                  bgcolor: isSelected ? "#06b6d4" : "transparent",
-                  color: isSelected ? "#fff" : "#d1d5db",
+                  bgcolor: isSelected ? theme.palette.primary.main : "transparent",
+                  color: isSelected ? theme.palette.primary.contrastText : theme.palette.text.secondary,
+                  "&:hover": {
+                    bgcolor: isSelected
+                      ? theme.palette.primary.dark
+                      : alpha(theme.palette.action.hover, 0.1),
+                  },
+
                   borderRadius: 2,
                   px: 2,
                   py: 1,
                   mx: 1,
-                  "&:hover": {
-                    bgcolor: isSelected ? "#0891b2" : "#374151"
-                  }
+
                 }}
               >
                 <ListItemText
@@ -137,7 +134,7 @@ const FilterSidebar = ({
                 />
                 <Box
                   sx={{
-                    bgcolor: isSelected ? "#0e7490" : "#4b5563",
+                    bgcolor: isSelected ? theme.palette.primary.light : "#4b5563",
                     color: "#fff",
                     fontSize: "0.75rem",
                     px: 1.2,
@@ -156,11 +153,7 @@ const FilterSidebar = ({
         })}
       </List>
 
-      {/* Footer opcional */}
-      <Divider sx={{ borderColor: "#374151" }} />
-      <Box sx={{ py: 2, display: "flex", justifyContent: "center" }}>
-        <input type="search" placeholder="Busqueda rapida" className="border-1 p-2 rounded" onChange={onKeywordChange} />
-      </Box>
+
     </Drawer>
   )
 }
